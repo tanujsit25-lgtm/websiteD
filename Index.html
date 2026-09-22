@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Improving Sales of a Local Shoe Store | TAE-I Project</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+:root{
+    --dark:#111827;
+    --dark2:#1f2937;
+    --accent:#f59e0b;
+    --accent2:#ef4444;
+    --light:#f8fafc;
+    --muted:#64748b;
+    --card:#ffffff;
+    --shadow:0 12px 35px rgba(15,23,42,.09);
+}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{
+    font-family:'Poppins',Arial,sans-serif;
+    background:linear-gradient(180deg,#f8fafc 0%,#eef2f7 100%);
+    color:#1e293b;line-height:1.7;
+}
+.navbar{
+    background:rgba(17,24,39,.94)!important;
+    backdrop-filter:blur(12px);
+    box-shadow:0 5px 25px rgba(0,0,0,.15);
+}
+.navbar-brand{letter-spacing:.4px}
+.navbar-brand,.nav-link{color:white!important}
+.nav-link{font-size:.88rem;font-weight:500;transition:.25s}
+.nav-link:hover{color:#fbbf24!important;transform:translateY(-1px)}
+.hero{
+    min-height:610px;display:flex;align-items:center;position:relative;overflow:hidden;
+    background:
+      linear-gradient(120deg,rgba(2,6,23,.88),rgba(17,24,39,.55),rgba(245,158,11,.18)),
+      url("https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1800&q=85")
+      center/cover;
+    color:white;
+}
+.hero:before,.hero:after{
+    content:"";position:absolute;border-radius:50%;filter:blur(2px);opacity:.25;
+}
+.hero:before{width:330px;height:330px;background:#f59e0b;right:-100px;top:-100px}
+.hero:after{width:250px;height:250px;background:#ef4444;left:-100px;bottom:-100px}
+.hero .container{position:relative;z-index:2}
+.hero h1{
+    font-size:clamp(2.4rem,6vw,5rem);font-weight:800;line-height:1.08;
+    text-shadow:0 5px 25px rgba(0,0,0,.35);
+}
+.hero p{max-width:850px;margin:15px auto;font-size:1.04rem}
+.hero .btn{border-radius:50px;font-weight:700;padding:13px 28px;box-shadow:0 8px 25px rgba(0,0,0,.18)}
+.hero .btn:hover{transform:translateY(-3px)}
+section{padding:80px 0;position:relative}
+.section-title{font-weight:800;margin-bottom:8px;color:#0f172a}
+.section-title:after{
+    content:"";display:block;width:65px;height:4px;border-radius:5px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));margin-top:10px
+}
+.section-subtitle{color:var(--muted);margin-bottom:38px}
+.bg-light{background:linear-gradient(135deg,#f1f5f9,#fff)!important}
+.info-card,.product-card,.ad-card,.email{
+    background:rgba(255,255,255,.95);
+    border:1px solid rgba(148,163,184,.18);
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
+}
+.info-card{padding:28px;height:100%}
+.info-card:hover,.product-card:hover,.ad-card:hover{
+    transform:translateY(-8px);box-shadow:0 20px 45px rgba(15,23,42,.14);
+    border-color:rgba(245,158,11,.35)
+}
+.info-card h3,.info-card h4{font-weight:700;margin-bottom:15px;color:#0f172a}
+.info-card h4 i{color:var(--accent);margin-right:8px}
+.label{font-weight:700;color:#334155}
+.product-card{overflow:hidden;height:100%}
+.product-card img{width:100%;height:240px;object-fit:cover;transition:transform .5s}
+.product-card:hover img{transform:scale(1.07)}
+.product-content{padding:23px}
+.product-content h4{font-weight:700}
+.price{display:inline-block;margin-top:7px;padding:7px 12px;border-radius:20px;background:#fff7ed;color:#c2410c;font-weight:700}
+.badge-keyword{
+    display:inline-block;padding:9px 15px;margin:5px 3px;border-radius:30px;
+    background:linear-gradient(135deg,#eef2ff,#f5f3ff);color:#3730a3;
+    border:1px solid #e0e7ff;font-size:.9rem;transition:.25s
+}
+.badge-keyword:hover{transform:translateY(-2px);background:#e0e7ff}
+.table{background:white;border-radius:12px;overflow:hidden}
+.table thead th{padding:15px}
+.table tbody td{padding:14px}
+.social-box{border-left:5px solid var(--accent);position:relative}
+.social-icon{
+    width:52px;height:52px;border-radius:15px;display:grid;place-items:center;
+    background:#111827;color:white;font-size:1.45rem;margin-bottom:18px
+}
+.ad-card{overflow:hidden;height:100%}
+.ad-card img{width:100%;height:310px;object-fit:cover;transition:transform .5s}
+.ad-card:hover img{transform:scale(1.05)}
+.ad-content{padding:28px;text-align:center}
+.ad-content h3{font-weight:800}
+.ad-content .btn{border-radius:30px;padding:10px 22px}
+.email{padding:34px}
+.email-offer{
+    background:linear-gradient(135deg,#111827,#374151);
+    color:white;padding:24px;border-radius:15px;text-align:center;margin:25px 0;
+    box-shadow:0 10px 25px rgba(17,24,39,.2)
+}
+footer{background:#0b1120;color:white;padding:42px 0;text-align:center}
+.footer-icons a{color:white;font-size:1.25rem;margin:0 7px;transition:.2s}
+.footer-icons a:hover{color:#fbbf24}
+.small-note{color:var(--muted);font-size:.95rem}
+.gallery-card{position:relative;overflow:hidden;border-radius:20px;height:280px;box-shadow:var(--shadow)}
+.gallery-card img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.gallery-card:hover img{transform:scale(1.08)}
+.gallery-overlay{
+    position:absolute;inset:auto 0 0;padding:35px 20px 18px;color:#fff;
+    background:linear-gradient(transparent,rgba(0,0,0,.8))
+}
+.gallery-overlay h5{margin:0;font-weight:700}
+.stat-card{
+    padding:25px;border-radius:18px;text-align:center;color:white;
+    background:linear-gradient(135deg,#111827,#334155);box-shadow:var(--shadow)
+}
+.stat-card i{font-size:2rem;color:#fbbf24}
+.stat-card strong{display:block;font-size:1.7rem;margin:6px 0}
+.float-btn{
+    position:fixed;right:20px;bottom:20px;width:54px;height:54px;border-radius:50%;
+    display:grid;place-items:center;background:#111827;color:white;z-index:1000;
+    box-shadow:0 10px 25px rgba(0,0,0,.25);text-decoration:none
+}
+.float-btn:hover{background:#f59e0b;color:#111827}
+.reveal{animation:fadeUp .7s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media(max-width:768px){
+    .hero{min-height:560px}
+    section{padding:60px 0}
+    .hero h1{font-size:2.45rem}
+    .gallery-card{height:230px}
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg sticky-top">
+<div class="container">
+    <a class="navbar-brand fw-bold" href="#home">City Step Shoes</a>
+    <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="#profile">Business Profile</a></li>
+            <li class="nav-item"><a class="nav-link" href="#audience">Target Audience</a></li>
+            <li class="nav-item"><a class="nav-link" href="#seo">SEO Keywords</a></li>
+            <li class="nav-item"><a class="nav-link" href="#social">Social Media</a></li>
+            <li class="nav-item"><a class="nav-link" href="#ads">Advertisement</a></li>
+            <li class="nav-item"><a class="nav-link" href="#email">Email Marketing</a></li>
+            <li class="nav-item"><a class="nav-link" href="#improvement">Improvements</a></li>
+        </ul>
+    </div>
+</div>
+</nav>
+
+<!-- FIRST PAGE -->
+<header class="hero" id="home">
+<div class="container text-center">
+    <p class="text-uppercase fw-bold mb-2">TAE-I Project Based Learning</p>
+    <h1>Improving Sales of a Local Shoe Store</h1>
+    <p>
+        This project shows how digital marketing can be used to promote a local
+        shoe store, reach the right customers and increase enquiries and sales
+        through online platforms.
+    </p>
+    <p>
+        The website focuses on SEO, social media marketing, online advertising
+        and email marketing.
+    </p>
+    <a href="#profile" class="btn btn-light mt-2 px-4">Explore Project</a>
+</div>
+</header>
+
+
+<!-- 1. BUSINESS PROFILE -->
+<section id="profile">
+<div class="container">
+    <h2 class="section-title">1. Business Profile</h2>
+    <p class="section-subtitle">Basic information about the local shoe store</p>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="info-card reveal">
+                <h3><i class="bi bi-shop"></i> About Us</h3>
+                <p>
+                    <strong>City Step Shoes</strong> is a local footwear store
+                    that provides affordable and comfortable footwear for men,
+                    women and children.
+                </p>
+                <p>
+                    The store offers sports shoes, casual shoes, sandals,
+                    slippers and everyday footwear. The main aim is to provide
+                    good products at reasonable prices with helpful customer service.
+                </p>
+                <p>
+                    Digital marketing can help the store show its products online,
+                    attract nearby customers and increase sales.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="info-card reveal">
+                <h4><i class="bi bi-geo-alt"></i> Business Details</h4>
+                <p><span class="label">Business Name:</span> City Step Shoes</p>
+                <p><span class="label">Business Type:</span> Local Shoe Store</p>
+                <p><span class="label">Location:</span> Nagpur, Maharashtra, India</p>
+                <p><span class="label">Contact:</span> +91 98765 43210</p>
+                <p><span class="label">Email:</span> citystep@example.com</p>
+                <p><span class="label">Working Area:</span> Nagpur and nearby areas</p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="info-card reveal">
+                <h4><i class="bi bi-bag"></i> Main Products</h4>
+                <ul>
+                    <li>Sports shoes</li>
+                    <li>Casual shoes</li>
+                    <li>Men's footwear</li>
+                    <li>Women's footwear</li>
+                    <li>Children's footwear</li>
+                    <li>Sandals and slippers</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="info-card reveal">
+                <h4><i class="bi bi-chat-dots"></i> How Can Customers Connect With Us?</h4>
+                <p>
+                    Customers can contact the store through phone, WhatsApp,
+                    email and social media. They can ask about product availability,
+                    sizes, prices, offers and new arrivals.
+                </p>
+                <p class="mb-0">
+                    <strong>Phone:</strong> +91 98765 43210 |
+                    <strong>WhatsApp:</strong> Available |
+                    <strong>Instagram:</strong> @citystepshoes
+                </p>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="info-card reveal">
+                <h4><i class="bi bi-bullseye"></i> Project Objective</h4>
+                <ul class="mb-0">
+                    <li>Increase awareness of the local shoe store.</li>
+                    <li>Reach potential customers through digital platforms.</li>
+                    <li>Promote new footwear and special offers.</li>
+                    <li>Generate more customer enquiries.</li>
+                    <li>Increase store visits and sales.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="mt-5 mb-4">Popular Products</h3>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="product-card reveal">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80" alt="Sports shoes">
+                <div class="product-content">
+                    <h4>Sports Shoes</h4>
+                    <p>Comfortable footwear for running, walking and daily use.</p>
+                    <span class="price">Starting from ₹999</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="product-card reveal">
+                <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=900&q=80" alt="Casual shoes">
+                <div class="product-content">
+                    <h4>Casual Shoes</h4>
+                    <p>Simple and stylish shoes for college and everyday wear.</p>
+                    <span class="price">Starting from ₹799</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="product-card reveal">
+                <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=900&q=80" alt="Footwear">
+                <div class="product-content">
+                    <h4>Daily Footwear</h4>
+                    <p>Affordable sandals and footwear for regular use.</p>
+                    <span class="price">Starting from ₹399</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="row g-4 mt-2">
+        <div class="col-6 col-lg-3"><div class="stat-card"><i class="bi bi-bag-check"></i><strong>6+</strong><span>Product Categories</span></div></div>
+        <div class="col-6 col-lg-3"><div class="stat-card"><i class="bi bi-people"></i><strong>4</strong><span>Target Groups</span></div></div>
+        <div class="col-6 col-lg-3"><div class="stat-card"><i class="bi bi-phone"></i><strong>3</strong><span>Digital Channels</span></div></div>
+        <div class="col-6 col-lg-3"><div class="stat-card"><i class="bi bi-geo-alt"></i><strong>Nagpur</strong><span>Local Focus</span></div></div>
+    </div>
+</div>
+</section>
+
+
+
+<section id="gallery">
+<div class="container">
+    <h2 class="section-title">Featured Footwear Collection</h2>
+    <p class="section-subtitle">A visual showcase of the products promoted through the digital marketing plan.</p>
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85" alt="Red sports shoe">
+                <div class="gallery-overlay"><h5>Sports Collection</h5><small>Comfort for active days</small></div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=900&q=85" alt="Casual shoe">
+                <div class="gallery-overlay"><h5>Casual Collection</h5><small>Everyday style</small></div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=900&q=85" alt="Women's footwear">
+                <div class="gallery-overlay"><h5>Daily Footwear</h5><small>Simple and comfortable</small></div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="gallery-card">
+                <img src="https://images.unsplash.com/photo-1495555961986-6d4c1ecb7be3?auto=format&fit=crop&w=900&q=85" alt="Sneakers collection">
+                <div class="gallery-overlay"><h5>Sneaker Style</h5><small>Fresh looks for customers</small></div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- 2. TARGET AUDIENCE -->
+<section id="audience" class="bg-light">
+<div class="container">
+    <h2 class="section-title">2. Target Audience</h2>
+    <p class="section-subtitle">Customers who are most likely to purchase our footwear</p>
+
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="info-card reveal">
+                <h4>Students</h4>
+                <p><strong>Age:</strong> 15–25</p>
+                <p>Interested in affordable, stylish casual and sports shoes.</p>
+                <hr>
+                <strong>Marketing Focus</strong>
+                <p>Instagram Reels, student offers and new-arrival posts.</p>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="info-card reveal">
+                <h4>Working People</h4>
+                <p><strong>Age:</strong> 22–45</p>
+                <p>Looking for comfortable footwear for office and daily travel.</p>
+                <hr>
+                <strong>Marketing Focus</strong>
+                <p>Facebook, Instagram and WhatsApp promotions.</p>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="info-card reveal">
+                <h4>Families</h4>
+                <p><strong>Age:</strong> 30–55</p>
+                <p>Need footwear for parents and children at reasonable prices.</p>
+                <hr>
+                <strong>Marketing Focus</strong>
+                <p>Family offers, festival discounts and product posts.</p>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="info-card reveal">
+                <h4>Sports Customers</h4>
+                <p><strong>Age:</strong> 16–40</p>
+                <p>Interested in sports shoes for walking, running and exercise.</p>
+                <hr>
+                <strong>Marketing Focus</strong>
+                <p>Sports shoe videos, product demonstrations and offers.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-card mt-4">
+        <h4><i class="bi bi-people"></i> Overall Targeting Approach</h4>
+        <p class="mb-0">
+            The store can use different digital platforms according to customer
+            interests. Instagram can focus on students and younger customers,
+            while Facebook and WhatsApp can help reach families and working people.
+            Local digital advertisements can target customers around the store.
+        </p>
+    </div>
+</div>
+</section>
+
+
+<!-- 3. SEO KEYWORDS -->
+<section id="seo">
+<div class="container">
+    <h2 class="section-title">3. SEO Keywords</h2>
+    <p class="section-subtitle">Keywords used to improve the search visibility of the shoe store</p>
+
+    <div class="info-card mb-4">
+        <h4><i class="bi bi-search"></i> Short-Tail Keywords</h4>
+        <p class="small-note">Short and general keywords with higher competition.</p>
+        <div>
+            <span class="badge-keyword">Shoe Store</span>
+            <span class="badge-keyword">Shoes</span>
+            <span class="badge-keyword">Sports Shoes</span>
+            <span class="badge-keyword">Footwear</span>
+            <span class="badge-keyword">Casual Shoes</span>
+            <span class="badge-keyword">Shoe Shop</span>
+        </div>
+    </div>
+
+    <div class="info-card mb-4">
+        <h4><i class="bi bi-search-heart"></i> Long-Tail Keywords</h4>
+        <p class="small-note">Specific phrases that local customers may search for.</p>
+        <div>
+            <span class="badge-keyword">Affordable shoe shop in Nagpur</span>
+            <span class="badge-keyword">Best shoe store near me</span>
+            <span class="badge-keyword">Sports shoes in Nagpur</span>
+            <span class="badge-keyword">Affordable shoes near me</span>
+            <span class="badge-keyword">Men's shoes in Nagpur</span>
+            <span class="badge-keyword">Women's footwear in Nagpur</span>
+            <span class="badge-keyword">Casual shoes near me</span>
+            <span class="badge-keyword">Local shoe shop in Nagpur</span>
+        </div>
+    </div>
+
+    <div class="info-card reveal">
+        <h4><i class="bi bi-graph-up-arrow"></i> SEO Approach</h4>
+        <ul class="mb-0">
+            <li>Use important keywords in website headings and product descriptions.</li>
+            <li>Use local keywords such as Nagpur and nearby areas.</li>
+            <li>Keep business name, address and contact details correct online.</li>
+            <li>Add useful product photos and descriptions.</li>
+            <li>Encourage genuine customer reviews.</li>
+        </ul>
+    </div>
+</div>
+</section>
+
+
+<!-- 4. SOCIAL MEDIA MARKETING -->
+<section id="social" class="bg-light">
+<div class="container">
+    <h2 class="section-title">4. Social Media Marketing Plan</h2>
+    <p class="section-subtitle">Promoting footwear through social media platforms</p>
+
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="info-card social-box">
+                <div class="social-icon"><i class="bi bi-instagram"></i></div><h4>Instagram</h4>
+                <p>Post new shoes, Reels, offers, product photos and customer experiences.</p>
+                <strong>Sample Post:</strong>
+                <p>"New sports shoes are here! Comfortable, stylish and available at a great price."</p>
+                <p class="mb-0">#CityStepShoes #Shoes #Nagpur</p>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="info-card social-box">
+                <div class="social-icon"><i class="bi bi-facebook"></i></div><h4>Facebook</h4>
+                <p>Share product details, discounts, store updates and customer reviews.</p>
+                <strong>Sample Post:</strong>
+                <p>"Looking for comfortable footwear for your family? Visit our store and check our latest collection."</p>
+                <p class="mb-0">#Footwear #ShoeShop #Nagpur</p>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="info-card social-box">
+                <div class="social-icon"><i class="bi bi-whatsapp"></i></div><h4>WhatsApp</h4>
+                <p>Send new-arrival photos, offers and product information to interested customers.</p>
+                <strong>Sample Message:</strong>
+                <p>"Hello! Our new collection has arrived. Contact us for sizes, prices and today's offers."</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-card mt-4">
+        <h4><i class="bi bi-calendar3"></i> Weekly Content Plan</h4>
+        <div class="table-responsive">
+            <table class="table table-bordered mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Day</th>
+                        <th>Content</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Monday</td><td>New Product Post</td></tr>
+                    <tr><td>Wednesday</td><td>Short Shoe Reel</td></tr>
+                    <tr><td>Friday</td><td>Discount / Offer</td></tr>
+                    <tr><td>Sunday</td><td>Customer Review / Product Photo</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</section>
+
+
+<!-- 5. ADVERTISEMENT DESIGN -->
+<section id="ads">
+<div class="container">
+    <h2 class="section-title">5. Advertisement Design</h2>
+    <p class="section-subtitle">Sample online advertisements for increasing local shoe sales</p>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="ad-card reveal">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1000&q=80" alt="Sports shoe advertisement">
+                <div class="ad-content">
+                    <h3>NEW SPORTS SHOES</h3>
+                    <p>Comfortable shoes for walking, running and everyday use.</p>
+                    <h4>Starting ₹999</h4>
+                    <button class="btn btn-dark">Visit Our Store</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="ad-card reveal">
+                <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=1000&q=80" alt="Casual shoe advertisement">
+                <div class="ad-content">
+                    <h3>WEEKEND OFFER</h3>
+                    <p>Special discounts on selected casual footwear.</p>
+                    <h4>Limited Time Offer</h4>
+                    <button class="btn btn-dark">Shop Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+
+<!-- 6. EMAIL MARKETING -->
+<section id="email" class="bg-light">
+<div class="container">
+    <h2 class="section-title">6. Email Marketing</h2>
+    <p class="section-subtitle">Sample promotional email campaign for customers</p>
+
+    <div class="email">
+        <p><strong>Subject:</strong> New Shoes & Weekend Offers at City Step Shoes</p>
+        <hr>
+
+        <h3>New Collection Is Here!</h3>
+
+        <p>Dear Customer,</p>
+
+        <p>
+            Looking for comfortable and affordable footwear?
+            City Step Shoes has a new collection of sports shoes,
+            casual shoes, sandals and everyday footwear.
+        </p>
+
+        <p>
+            Visit our store and check the latest products, sizes and offers.
+            We have special discounts on selected footwear this weekend.
+        </p>
+
+        <div class="email-offer">
+            <h4>WEEKEND SPECIAL OFFER</h4>
+            <p class="mb-0">Visit the store and ask about our latest discounts.</p>
+        </div>
+
+        <p>
+            Thank you for choosing City Step Shoes.
+        </p>
+
+        <p class="mb-0">
+            Regards,<br>
+            <strong>City Step Shoes</strong><br>
+            Nagpur, Maharashtra<br>
+            +91 98765 43210<br>
+            citystep@example.com
+        </p>
+    </div>
+</div>
+</section>
+
+
+<!-- 7. BUSINESS IMPROVEMENT -->
+<section id="improvement">
+<div class="container">
+    <h2 class="section-title">7. Business Improvement Suggestions</h2>
+    <p class="section-subtitle">Suggestions for improving the shoe store using digital marketing</p>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="info-card reveal">
+                <h4>1. Improve Google Presence</h4>
+                <p>
+                    Keep the business profile updated with correct address,
+                    contact details, photos, products, working hours and reviews.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="info-card reveal">
+                <h4>2. Use More Reels</h4>
+                <p>
+                    Create short videos showing new shoes, different sizes,
+                    offers and simple product demonstrations.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="info-card reveal">
+                <h4>3. Collect Customer Reviews</h4>
+                <p>
+                    Ask satisfied customers to leave genuine reviews after
+                    purchasing footwear.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="info-card reveal">
+                <h4>4. Referral Offers</h4>
+                <p>
+                    Give a small discount or benefit to existing customers
+                    who bring new customers to the store.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="info-card reveal">
+                <h4>5. Simple Online Enquiry</h4>
+                <p>
+                    Provide an easy WhatsApp contact so customers can ask
+                    about price, size and availability before visiting.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="info-card reveal">
+                <h4>6. Track Marketing Results</h4>
+                <p>
+                    Track social media reach, enquiries, website visits and
+                    sales to understand which marketing methods work best.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+
+<footer>
+<div class="container">
+    <p class="mb-1">TAE-I Project Based Learning</p>
+    <p class="mb-1">Digital Marketing – Improving Sales of a Local Shoe Store</p>
+    <p class="mb-0">City Step Shoes</p>
+</div>
+</footer>
+<a href="#home" class="float-btn" aria-label="Back to top"><i class="bi bi-arrow-up"></i></a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const revealItems = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){ entry.target.style.animationDelay='80ms'; entry.target.classList.add('reveal'); observer.unobserve(entry.target); }
+  });
+},{threshold:.08});
+revealItems.forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
